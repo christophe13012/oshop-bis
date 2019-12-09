@@ -1,0 +1,123 @@
+<div class="row">
+  <div class="col-6">
+    <h4>Enregistrer un nouveau produit</h4>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="md-form">
+        <input
+          mdbInput
+          required
+          type="text"
+          name="titre"
+          id="form1"
+          class="form-control"
+          style="width: 220px;"
+          #titre="ngModel"
+          [(ngModel)]="produit.titre"
+        />
+        <label for="form1" class="">Titre</label>
+      </div>
+      <div class="md-form">
+        <input
+          mdbInput
+          required
+          type="number"
+          name="prix"
+          id="form2"
+          class="form-control"
+          style="width: 220px;"
+          #prix="ngModel"
+          [(ngModel)]="produit.prix"
+        />
+        <label for="form2" class="">Prix</label>
+      </div>
+      <mat-form-field>
+        <mat-label>Catégorie</mat-label>
+        <mat-select
+          name="categories"
+          required
+          #categorie="ngModel"
+          [(ngModel)]="produit.categories"
+        >
+          <mat-option *ngFor="let cat of categories$ | async" [value]="cat.id">
+            {{ cat.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="md-form">
+        <input
+          mdbInput
+          required
+          type="text"
+          name="imageUrl"
+          id="form4"
+          class="form-control"
+          style="width: 220px;"
+          #url="ngModel"
+          [(ngModel)]="produit.imageUrl"
+        />
+        <label for="form4" class="">Image url</label>
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        style="width: 300px;"
+        *ngIf="f.touched && f.invalid"
+      >
+        Tous les champs sont obligatoires
+      </div>
+      <button
+        mdbBtn
+        type="submit"
+        gradient="blue"
+        rounded="true"
+        [disabled]="f.invalid"
+        mdbWavesEffect
+      >
+        Enregistrer
+      </button>
+      <a
+        type="button"
+        mdbBtn
+        [routerLink]="['/admin/products']"
+        gradient="peach"
+        rounded="true"
+        mdbWavesEffect
+        mdbWavesEffect
+      >
+        Retour
+      </a>
+      <button
+        *ngIf="this.id"
+        type="button"
+        mdbBtn
+        color="danger"
+        (click)="onDelete()"
+        mdbWavesEffect
+      >
+        Supprimer
+      </button>
+    </form>
+  </div>
+  <div class="col">
+    <mdb-card>
+      <!--Card image-->
+      <mdb-card-img
+        *ngIf="url.value"
+        [src]="url.value"
+        alt="Card image cap"
+      ></mdb-card-img>
+      <!--Card content-->
+      <mdb-card-body>
+        <!--Title-->
+        <mdb-card-title>
+          <h4>{{ titre.value }}</h4>
+        </mdb-card-title>
+
+        <!--Text-->
+        <mdb-card-text>
+          <p *ngIf="prix.value">Prix : {{ prix.value }}€</p>
+        </mdb-card-text>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<a
+  mdbBtn
+  type="button"
+  gradient="blue"
+  rounded="true"
+  mdbWavesEffect
+  routerLink="/admin/products/new"
+>
+  Ajouter un produit
+</a>
+<form class="form-inline waves-light mt-3" mdbWavesEffect>
+  <div class="md-form mt-0 mb-0">
+    <input
+      class="form-control mr-sm-2"
+      type="text"
+      placeholder="Search"
+      name="search"
+      (ngModelChange)="onSearch()"
+      [(ngModel)]="search"
+    />
+  </div>
+</form>
+
+<table mdbTable striped="true" bordered="true" class="col-8">
+  <thead
+    class="blue-gradient
+  white-text"
+  >
+    <tr>
+      <th>Titre</th>
+      <th>Prix</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr mdbTableCol *ngFor="let produit of produitsFiltered">
+      <th scope="row">{{ produit.titre }}</th>
+      <td>{{ produit.prix }}</td>
+      <td><a [routerLink]="['/admin/products/', produit.key]">Edit</a></td>
+    </tr>
+  </tbody>
+</table>
